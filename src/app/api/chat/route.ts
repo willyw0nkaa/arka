@@ -67,7 +67,7 @@ export async function POST(req: Request) {
   // Simpan percakapan (dengan versi model & sumber data — Bab 10, Kualitas AI)
   const now = Date.now();
   const { data: saved, error } = await db.from("chat_messages").insert([
-    { student_id: a.userId, role: "user", content: message, created_at: new Date(now).toISOString() },
+    { student_id: a.userId, role: "user", content: message, sources: [], created_at: new Date(now).toISOString() },
     { student_id: a.userId, role: "assistant", content, sources, provider, model, created_at: new Date(now + 1).toISOString() },
   ]).select("id, role, content, sources, feedback, created_at");
   if (error || !saved) return bad("Gagal menyimpan percakapan.", 500);
